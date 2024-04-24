@@ -19,7 +19,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">Todo Application</div>
 
                     <div class="card-body">
 
@@ -55,7 +55,7 @@
                                             </td>
 
                                             <td id="outer">
-                                                <a class="inner btn btm-sm btn-success" href="">View</a>
+                                                <a class="inner btn btm-sm btn-success" href="{{ route('todo.show', $todos->id) }}">View</a>
                                                 <a class="inner btn btm-sm btn-info" href="">Edit</a>
 
                                                 <form action="" class="inner">
