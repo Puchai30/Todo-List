@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container" >
+        <div class="row justify-content-center" >
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Todo Application</div>
+                <div class="card" >
+                    <div class="card-header" >Todo Application</div>
 
-                    <div class="card-body">
+                    <div class="card-body" >
 
-                        <form>
+                        <form method="post" action="{{ route('todo.store')  }}">
+                        @csrf
                             <div class="mb-3">
                                 <label class="form-label">Title</label>
                                 <input type="text" name="title" class="form-control">
