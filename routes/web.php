@@ -29,3 +29,7 @@ Route::get('todo/create', [TodoController::class, 'create'])->name('todo.create'
 Route::post('todo/store', [TodoController::class, 'store'])->name('todo.store');
 
 Route::get('todo/show/{id}', [TodoController::class, 'show'])->name('todo.show');
+
+Route::get('todo/{id}/edit', [TodoController::class, 'edit'])->name('todo.edit');
+
+Route::put('todo/update', [TodoController::class, 'update'])->name('todo.update');

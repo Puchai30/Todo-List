@@ -22,11 +22,11 @@ class TodoController extends Controller
     public function store(TodoRequest $request)
     {
 
-        $todos = new Todo;
-        $todos->title = request()->title;
-        $todos->description = request()->description;
-        $todos->is_completed = 0;
-        $todos->save();
+            $todos = new Todo;
+            $todos->title = request()->title;
+            $todos->description = request()->description;
+            $todos->is_completed = 0;
+            $todos->save();
 
         // Todo::create([
         //     'title' => $request->title,
@@ -42,8 +42,43 @@ class TodoController extends Controller
     public function show($id)
     {
         $data = Todo::find($id);
-
+        if (!$data) {
+            request()->session()->flash('error', 'Unable to locate todo');
+            return to_route('todo.index')->withErrors([
+                'error' => 'Unable to locate todo'
+            ]);
+        }
         return view('todo.show', ['todo' => $data]);
+    }
+
+    public function edit($id)
+    {
+        $data = Todo::find($id);
+        if (!$data) {
+            request()->session()->flash('error', 'Unable to locate todo');
+            return to_route('todo.index')->withErrors([
+                'error' => 'Unable to locate todo'
+            ]);
+        }
+        return view('todo.edit', ['todo' => $data]);
+    }
+
+    public function update(TodoRequest $request)
+    {
+        $data = Todo::find($request->todo_id);
+        if (!$data) {
+            request()->session()->flash('error', 'Unable to locate todo');
+            return to_route('todo.index')->withErrors([
+                'error' => 'Unable to locate todo'
+            ]);
+        }
+        $data->update([
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+        $request->session()->flash('alert-success', 'Updated Success');
+
+        return to_route('todo.index');
 
     }
 }
