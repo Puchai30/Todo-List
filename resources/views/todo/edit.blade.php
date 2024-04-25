@@ -8,6 +8,17 @@
                     <div class="card-header">Todo Application</div>
 
                     <div class="card-body">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <h4>Edit Form</h4>
 
                         <form method="post" action="{{ route('todo.update') }}">

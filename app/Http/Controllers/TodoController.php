@@ -6,6 +6,7 @@ use App\Http\Requests\TodoRequest;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
+
 class TodoController extends Controller
 {
     public function index()
@@ -34,7 +35,7 @@ class TodoController extends Controller
             'is_completed' => 0
         ]);
 
-        $request->session()->flash('alert-success', 'Created Success');
+        session()->flash('alert-success', 'Created Success');
 
         return to_route('todo.index');
     }
@@ -43,8 +44,8 @@ class TodoController extends Controller
     {
         $data = Todo::find($id);
         if (!$data) {
-            request()->session()->flash('error', 'Unable to locate todo');
-            return to_route('todo.index')->withErrors([
+            session()->flash('error', 'Unable to locate todo');
+            return redirect()->route('todo.index')->withErrors([
                 'error' => 'Unable to locate todo'
             ]);
         }
@@ -55,20 +56,21 @@ class TodoController extends Controller
     {
         $data = Todo::find($id);
         if (!$data) {
-            request()->session()->flash('error', 'Unable to locate todo');
-            return to_route('todo.index')->withErrors([
+            session()->flash('error', 'Unable to locate todo');
+            return redirect()->route('todo.index')->withErrors([
                 'error' => 'Unable to locate todo'
             ]);
         }
         return view('todo.edit', ['todo' => $data]);
     }
 
+
     public function update(TodoRequest $request)
     {
         $data = Todo::find($request->todo_id);
         if (!$data) {
-            request()->session()->flash('error', 'Unable to locate todo');
-            return to_route('todo.index')->withErrors([
+            session()->flash('error', 'Unable to locate todo');
+            return redirect()->route('todo.index')->withErrors([
                 'error' => 'Unable to locate todo'
             ]);
         }
@@ -78,22 +80,22 @@ class TodoController extends Controller
             'is_completed' => $request->is_completed
 
         ]);
-        $request->session()->flash('alert-info', 'Updated Success');
+        session()->flash('alert-info', 'Updated Success');
 
-        return to_route('todo.index');
+        return redirect()->route('todo.index');
     }
 
     public function destory(Request $request)
     {
         $data = Todo::find($request->todo_id);
         if (!$data) {
-            request()->session()->flash('error', 'Unable to locate todo');
-            return to_route('todo.index')->withErrors([
+            session()->flash('error', 'Unable to locate todo');
+            return redirect()->route('todo.index')->withErrors([
                 'error' => 'Unable to locate todo'
             ]);
         }
         $data->delete();
-        $request->session()->flash('alert-success', 'Delete Success');
+        session()->flash('alert-success', 'Delete Success');
         return to_route('todo.index');
     }
 }
