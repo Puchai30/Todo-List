@@ -22,17 +22,17 @@ class TodoController extends Controller
     public function store(TodoRequest $request)
     {
 
-            $todos = new Todo;
-            $todos->title = request()->title;
-            $todos->description = request()->description;
-            $todos->is_completed = 0;
-            $todos->save();
+        // $todos = new Todo;
+        // $todos->title = request()->title;
+        // $todos->description = request()->description;
+        // $todos->is_completed = 0;
+        // $todos->save();
 
-        // Todo::create([
-        //     'title' => $request->title,
-        //     'description' => $request->description,
-        //     'is_completed' => 0
-        // ]);
+        Todo::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'is_completed' => 0
+        ]);
 
         $request->session()->flash('alert-success', 'Created Success');
 
@@ -74,10 +74,26 @@ class TodoController extends Controller
         }
         $data->update([
             'title' => $request->title,
-            'description' => $request->description
-        ]);
-        $request->session()->flash('alert-success', 'Updated Success');
+            'description' => $request->description,
+            'is_completed' => $request->is_completed
 
+        ]);
+        $request->session()->flash('alert-info', 'Updated Success');
+
+        return to_route('todo.index');
+    }
+
+    public function destory(Request $request)
+    {
+        $data = Todo::find($request->todo_id);
+        if (!$data) {
+            request()->session()->flash('error', 'Unable to locate todo');
+            return to_route('todo.index')->withErrors([
+                'error' => 'Unable to locate todo'
+            ]);
+        }
+        $data->delete();
+        $request->session()->flash('alert-success', 'Delete Success');
         return to_route('todo.index');
 
     }

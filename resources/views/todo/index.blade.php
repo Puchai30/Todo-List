@@ -33,7 +33,13 @@
                         <div class="alert alert-danger" role="alert">
                             {{ Session::get('error') }}
                         </div>
-                    @endif
+                        @endif
+
+                        @if (Session::has('alert-info'))
+                        <div class="alert alert-info" role="alert">
+                            {{ Session::get('alert-info') }}
+                        </div>
+                        @endif
 
                         @if (count($todo) > 0)
                             <table class="table">
@@ -62,11 +68,13 @@
 
                                             <td id="outer">
                                                 <a class="inner btn btm-sm btn-success" href="{{ route('todo.show', $todos->id) }}">View</a>
-                                                <a class="inner btn btm-sm btn-info" href="{{ route('todo.show', $todos->id) }}">Edit</a>
+                                                <a class="inner btn btm-sm btn-info" href="{{ route('todo.edit', $todos->id) }}">Edit</a>
 
-                                                <form action="" class="inner">
+                                                <form method="post" action="{{ route('todo.destory') }}" class="inner">
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <input type="hidden" name="todo_id" value="{{ $todos->id }}">
-                                                    <input type="submit" class="btn btm-sm btn-info">
+                                                    <input type="submit" class="btn btm-sm btn-danger" value="Delete">
                                                 </form>
                                             </td>
                                         </tr>

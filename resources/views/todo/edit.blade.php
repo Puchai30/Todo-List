@@ -26,6 +26,16 @@
                                 </textarea>
                             </div>
 
+                            <div class="mb-3">
+                                <label for="">Status</label>
+                                <select name="is_completed" class="form-control">
+                                    <option disabled selected>Select Option</option>
+                                    <option value="1">Complete</option>
+                                    <option value="0">In Complete</option>
+                                </select>
+
+                            </div>
+
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>
 
