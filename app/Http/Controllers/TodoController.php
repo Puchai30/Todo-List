@@ -26,7 +26,7 @@ class TodoController extends Controller
         // $todos->title = request()->title;
         // $todos->description = request()->description;
         // $todos->is_completed = 0;
-        // $todos->save();
+        // $todos->save);
 
         Todo::create([
             'title' => $request->title,
@@ -95,6 +95,5 @@ class TodoController extends Controller
         $data->delete();
         $request->session()->flash('alert-success', 'Delete Success');
         return to_route('todo.index');
-
     }
 }

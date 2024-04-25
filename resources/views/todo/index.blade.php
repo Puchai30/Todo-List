@@ -41,6 +41,8 @@
                         </div>
                         @endif
 
+                        <a class="inner btn btm-sm btn-info" href="{{ route("todo.create") }}">Create</a>
+
                         @if (count($todo) > 0)
                             <table class="table">
                                 <thead>
