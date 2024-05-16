@@ -41,7 +41,11 @@
                         </div>
                         @endif
 
+                        @can('admin')
+
                         <a class="inner btn btm-sm btn-info" href="{{ route("todo.create") }}">Create</a>
+
+                        @endcan
 
                         @if (count($todo) > 0)
                             <table class="table">
@@ -70,6 +74,8 @@
 
                                             <td id="outer">
                                                 <a class="inner btn btm-sm btn-success" href="{{ route('todo.show', $todos->id) }}">View</a>
+
+                                                @can('admin')
                                                 <a class="inner btn btm-sm btn-info" href="{{ route('todo.edit', $todos->id) }}">Edit</a>
 
                                                 <form method="post" action="{{ route('todo.destory') }}" class="inner">
@@ -78,6 +84,7 @@
                                                     <input type="hidden" name="todo_id" value="{{ $todos->id }}">
                                                     <input type="submit" class="btn btm-sm btn-danger" value="Delete">
                                                 </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

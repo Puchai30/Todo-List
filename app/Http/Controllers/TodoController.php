@@ -67,7 +67,7 @@ class TodoController extends Controller
 
     public function update(TodoRequest $request)
     {
-        $data = Todo::find($request->todo_id);
+        $data = Todo::find($request->goo_id);
         if (!$data) {
             session()->flash('error', 'Unable to locate todo');
             return redirect()->route('todo.index')->withErrors([
